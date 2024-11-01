@@ -19,7 +19,13 @@ def get_username():
         return session['user']
     else:
         return "Login"
-    
+def init_sqlite_db():
+    conn = sqlite3.connect('login.db')  # Connect to SQLite database named 'database.db'
+    # Execute SQL command to create 'users' table with id, username, and password columns
+    conn.execute('CREATE TABLE IF NOT EXISTS login (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), password VARCHAR(255), email STR)')
+    conn.execute('CREATE TABLE IF NOT EXISTS assignments (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), email STR)')
+    conn.close()  # Close the database connection
+
 @app.route('/')
 def index():
     return render_template('index.html',name=get_username())  
