@@ -128,79 +128,7 @@ p {
   height: 100px;        /* Set height to 100px */
   background-color: #622792;
 }
-.text-line {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 15rem;
-  font-size: 3vw;
-}
 
-.static-text {
-  color: white;
-  margin-right: 10px;
-  font-size: auto;
-}
-
-.text-container {
-  position: relative;
-  height: 60px; /* Height of the text */
-  white-space: nowrap; /* Prevents text from wrapping */
-}
-
-.rolling-text {
-  color: white;
-  font-size: auto;
-  position: absolute;
-  display: inline; /* Or use inline-block */
-  animation: roll-in-out 6s infinite ease-in-out;
-  transform-origin: bottom center;
-  opacity: 0;
-}
-
-.rolling-text:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.rolling-text:nth-child(2) {
-  animation-delay: 2s;
-}
-
-.rolling-text:nth-child(3) {
-  animation-delay: 4s;
-}
-
-@keyframes roll-in-out {
-  0% {
-    transform: rotateX(90deg);
-    opacity: 0;
-  }
-  10% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-  30% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-  40% {
-    transform: rotateX(-90deg);
-    opacity: 0;
-  }
-  100% {
-    transform: rotateX(-90deg);
-    opacity: 0;
-  }
-}
-.gradient-text {
-  font-size: 3rem;
-  display: inline; /* Or use inline-block */
-  white-space: nowrap;
-  background: -webkit-linear-gradient(#EA4C89, #622792);
-  color: transparent;
-  background-clip: text;
-}
 .container {
   display: flex; /* or inline-flex */
   flex-direction: row;
