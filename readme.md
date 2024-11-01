@@ -4,8 +4,8 @@ Assignment Tracker is a simple Flask web app created as a school project. It all
 
 ## Key Features
 
-- **User Authentication**: Secure user registration and login, ensuring that each user's data is private and protected.
-- **Assignment Tracking**: Users can add, edit, delete, and view assignments with details such as due dates, status, and priority.
+- **User Management**: Secure user registration and login and save to database.
+- **Assignment Tracking**: Users can add, edit, delete, and view assignments with details such as due dates, status.
 - **Database Security**: Uses an SQLite3 database with password hashing via `hashlib` to protect user data.
 
 ## Purpose
@@ -32,7 +32,6 @@ The primary goal of this project is to provide a simple, intuitive tool for stud
 
 ## Contact
 
-- **Name**: boowoof
 - **Email**: jamie@gilbertweb.site
 - **GitHub**: [BluewolfJ124](https://github.com/BluewolfJ124)
 
@@ -41,5 +40,6 @@ The primary goal of this project is to provide a simple, intuitive tool for stud
 - Backend contributions by **Corbin**
 - Typewriter Effect by **Aakhya Singh** on [CodePen](https://codepen.io/aakhya/pen/wQWZXV)
 - Card Animations by **Prashant J510** on [Uiverse](https://uiverse.io/prashantj510/breezy-otter-62)
+- Input Element by **Adam Giebl** on [Uiverse](https://uiverse.io/adamgiebl/hot-cat-14)
 - Button designs inspired by [Dribbble](https://dribbble.com/)
 - CSS Table design by **Dom** on [dev.to](https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l)
