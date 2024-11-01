@@ -13,9 +13,9 @@
     <h1>Assignments</h1>
     <form method="POST" action="/newassignment">
     <div class="container">
-        <div class="form">
-            <input class="add" id="name", name="name" placeholder="Create Assignment" required="" type="text">
-            <span class="add-border"></span>
+        <div class="form-control">
+            <input class="input input-alt" id="name", name="name" placeholder="Create Assignment" required="" type="text">
+            <span class="input-border input-border-alt"></span>
         </div>
         <input type="date" id="due" name="due" required="">
         <input type= "submit" value = "Create" class="button-2">
@@ -25,9 +25,9 @@
         <table class="styled-table">
             <thead>
                 <tr>
-                    <th></th>
+                    <th style="width: 50px;"></th>
                     <th>Assignment</th>
-                    <th>Due Date</th>
+                    <th style="width: 20%;">Due Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +63,9 @@
             if (parseInt(days) <= 2){
                 element.style.color = 'red';
             } 
+            else if(parseInt(days) <= 7){
+                element.style.color = 'orange';
+            }
             else{
                 element.style.color = 'green';
             }
