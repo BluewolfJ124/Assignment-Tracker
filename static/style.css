@@ -7,15 +7,15 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+a{
+  text-decoration: none;
+  color: #f2f2f2;
+}
 
 h1 {
   color: white;
   text-align: center;
   font-size: 2.5rem;
-}
-h2{
-  color: white;
-  font-size: 2rem;
 }
 ul{
   color: white;
@@ -30,8 +30,8 @@ ul{
 p {
   color:rgb(220, 220, 220);
   font-size: 20px;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 /* Style the navbar */
 #navbar {
@@ -124,84 +124,13 @@ p {
   height: 100px;        /* Set height to 100px */
   background-color: #622792;
 }
-.text-line {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 15rem;
-  font-size: 3vw;
-}
 
-.static-text {
-  color: white;
-  margin-right: 10px;
-  font-size: auto;
-}
-
-.text-container {
-  position: relative;
-  height: 60px; /* Height of the text */
-  white-space: nowrap; /* Prevents text from wrapping */
-}
-
-.rolling-text {
-  color: white;
-  font-size: auto;
-  position: absolute;
-  display: inline; /* Or use inline-block */
-  animation: roll-in-out 6s infinite ease-in-out;
-  transform-origin: bottom center;
-  opacity: 0;
-}
-
-.rolling-text:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.rolling-text:nth-child(2) {
-  animation-delay: 2s;
-}
-
-.rolling-text:nth-child(3) {
-  animation-delay: 4s;
-}
-
-@keyframes roll-in-out {
-  0% {
-    transform: rotateX(90deg);
-    opacity: 0;
-  }
-  10% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-  30% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-  40% {
-    transform: rotateX(-90deg);
-    opacity: 0;
-  }
-  100% {
-    transform: rotateX(-90deg);
-    opacity: 0;
-  }
-}
-.gradient-text {
-  font-size: 3rem;
-  display: inline; /* Or use inline-block */
-  white-space: nowrap;
-  background: -webkit-linear-gradient(#EA4C89, #622792);
-  color: transparent;
-  background-clip: text;
-}
 .container {
   display: flex; /* or inline-flex */
   flex-direction: row;
-  gap: 5vw; /* Adds spacing between each item */
+  gap: 50px; /* Adds spacing between each item */
   align-items: center; /* Centers items vertically */
+  margin: 50px 100px;
 }
 
 .container-img {
@@ -248,21 +177,9 @@ p {
   scroll-snap-type: none; /* Disable snapping effect */
 }
 
-.form {
-  padding-left: 5vw;
-  --width-of-input: 50vw;
-  --border-height: 1px;
-  --border-before-color: rgba(221, 221, 221, 0.39);
-  --border-after-color: #EA4C89;
-  --input-hovered-color: #7f3cb21f;
-  position: relative;
-  width: var(--width-of-input);
- }
-
- /* styling of Input */
- .add {
+ .input {
   color: #fff;
-  font-size: 1.5vw;
+  font-size: 2rem !important;
   background-color: transparent;
   width: 100%;
   box-sizing: border-box;
@@ -270,29 +187,48 @@ p {
   padding-block: 0.7em;
   border: none;
   border-bottom: var(--border-height) solid var(--border-before-color);
- }
- /* styling of animated border */
- .add-border {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-border {
   position: absolute;
   background: var(--border-after-color);
   width: 0%;
   height: 2px;
   bottom: 0;
-  left: 5vw;
-  transition: 0.3s;
- }
- /* Hover on Input */
- .add:hover {
-  background: var(--input-hovered-color);
- }
- 
- .add:focus {
+  left: 0;
+  transition: width 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.input:focus {
   outline: none;
- }
- /* here is code of animated border */
- .add:focus ~ .input-border {
-  width: 91%;
- }
+}
+
+.input:focus + .input-border {
+  width: 100%;
+}
+
+.form-control {
+  position: relative;
+  width: 100%;
+}
+
+.input-alt {
+  font-size: 1.2rem;
+  padding-inline: 1em;
+  padding-block: 0.8em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-border-alt {
+  height: 3px;
+  background: linear-gradient(90deg, #622792 0%, #EA4C89 100%);
+  transition: width 0.4s cubic-bezier(0.42, 0, 0.58, 1.00);
+}
+
+.input-alt:focus + .input-border-alt {
+  width: 100%;
+}
  .button-2 {
   background-color: #EA4C89;
   border-radius: 8px;
@@ -300,10 +236,10 @@ p {
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-size: 2vw;
+  font-size: 26px;
   position: relative;
   text-align: center;
-  padding: 2vw;
+  padding: 24px 10px;
   transition: color 100ms;
   vertical-align: baseline;
   user-select: none;
@@ -311,7 +247,7 @@ p {
 }  
 input[type="date"]{
   background-color: rgba(0,0,0,0);
-  font-size: 3vw;
+  font-size: 60px;
   border: none;
   color-scheme: dark;
 }
@@ -328,35 +264,55 @@ input[type="date"]::-webkit-datetime-edit {
   margin: 25px 0;
   font-size: 2vw;
   font-family: sans-serif;
-  min-width: 90vw;
+  width: calc(100% - 200px); /* Full width minus left and right margins */
+  margin: 0 100px; /* 100px margin on left and right */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  border-radius: 20px;
   overflow: hidden;
 }
 .styled-table thead tr {
   background-color: #EA4C89;
   color: #ffffff;
   text-align: left;
-  border-radius: 20px;
 }
+
 .styled-table th,
 .styled-table td {
-    padding: 12px 15px;
-    font-size: 2.5vw;
+    padding: 15px;
+    font-size: 20px;
     color: #dddddd;
 }
-.styled-table tbody tr {
-  border-bottom: 1px solid #dddddd;
+
+.styled-table thead tr th:first-child {
+  border-top-left-radius: 10px; /* Top-left corner of the header */
 }
 
+.styled-table thead tr th:last-child {
+  border-top-right-radius: 10px; /* Top-right corner of the header */
+}
+
+.styled-table tbody tr td:first-child {
+  border-bottom-left-radius: 10px; /* Bottom-left of each body row */
+}
+
+.styled-table tbody tr td:last-child {
+  border-bottom-right-radius: 10px; /* Bottom-right of each body row */
+}
 .styled-table tbody tr:nth-of-type(even) {
-  background-color: #29232e;
+  background-color: #2B2A2F;
+}
+.styled-table td.checkbox{
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;    /* Center vertically */
+  font-size: 50px;
 }
 
-.styled-table tbody tr:last-of-type {
-  border-bottom: 2px solid #EA4C89;
-}
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #EA4C89;
+.full-span {
+  background-color: rgb(32, 31, 32);
+  color: white; /* White text color */
+  font-weight: bold; /* Bold text */
+  font-size: 56px !important; /* Increased font size */
+  padding: 15px; /* Increased padding */
+  border-top: 3px solid white; /* White underline */
 }

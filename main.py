@@ -1,38 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
-import hashlib, time
+import hashlib
 import sqlite3
 from datetime import datetime
-from datetime import date
-month_map = {
-    '01': 'January',
-    '02': 'February',
-    '03': 'March',
-    '04': 'April',
-    '05': 'May',
-    '06': 'June',
-    '07': 'July',
-    '08': 'August',
-    '09': 'September',
-    '10': 'October',
-    '11': 'November',
-    '12': 'December'
-}
 
 app = Flask(__name__)
+
 gilberts = 0 
 app.secret_key = 'sdghsadghi'  # Required for session management
 # HI CORBIN
-def convert_date(date_str):
-    # Split the date string into components
-    year, month, day = date_str.split('-')
-    day = int(day)
-    # Map the month number to the month name
-    if 10 <= day % 100 <= 20:  # Handle 11th, 12th, 13th
-        suffix = 'th'
-    else:
-        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
-    month_name = month_map[month]
-    return f"{month_name} {day}{suffix}"  # Convert day to int to remove leading zero
 def days_between_dates(dt):
     date1 = datetime.now().date()
     date2 = datetime.strptime(dt, '%Y-%m-%d').date()
@@ -48,23 +23,27 @@ def get_username():
 @app.route('/')
 def index():
     return render_template('index.html',name=get_username())  
-@app.route('/about')
-def about():
-    return render_template('about.html', name=get_username())  
+
 @app.route('/assignments')
 def assignments():
     if session.get('user') is not None:
         #assignments = get_assignments()
         conn = sqlite3.connect("login.db")
         cursor = conn.cursor()  
-        cursor.execute("SELECT id, name, date_due from assignments WHERE user=?", (session["user"],))
+        cursor.execute("SELECT id, name, date_due, completed from assignments WHERE user=?", (session["user"],))
         items = cursor.fetchall()
-        real_items = []
+        uncompleted = []
+        completed = []
         for i in items:
-            real_items.append((i[1],days_between_dates(i[2]),i[0]))
-        print(real_items)
+            if i[3] == False:
+                uncompleted.append((i[1],days_between_dates(i[2]),i[0]))
+            else:
+                if days_between_dates(i[2]) < -14:
+                    delete(i[0])
+                else:
+                    completed.append((i[0],i[1]))
         conn.close()
-        return render_template('assignments.html',name=get_username(), items=real_items)  
+        return render_template('assignments.html',name=get_username(), items=uncompleted, completed=completed)  
     else:
         return redirect(url_for("login"))
 @app.route('/newassignment', methods=["POST"])
@@ -78,6 +57,20 @@ def newassignment():
         cursor = conn.cursor()  
         cursor.execute("INSERT INTO assignments (name, date_due, user) VALUES (?, ?, ?)", (name, due, get_username()))
         conn.commit()
+        conn.close()
+        return redirect(url_for("assignments"))
+    else:
+        return jsonify("Not allowed",403)
+@app.route('/finish/<id>', methods=["GET"])
+def finish(id):
+    if session.get('user') is not None:
+        conn = sqlite3.connect("login.db")
+        cursor = conn.cursor() 
+        try: 
+            cursor.execute("UPDATE assignments SET completed=TRUE WHERE id=?", (id,))
+            conn.commit()
+        except:
+            return redirect(url_for("assignments"))
         conn.close()
         return redirect(url_for("assignments"))
     else:
@@ -206,4 +199,4 @@ def resetpassword():
         return render_template("resetpass.html", name=get_username())
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0")
