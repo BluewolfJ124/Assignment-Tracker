@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/giraffeicon.ico">
+    <link rel="stylesheet" href="static/form.css">
+    <title>Login</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>LOGIN</h1>
+    <form method = "POST" action="{{ url_for('login') }}">
+        <input autocomplete="off" class="input" type="text" id = "name" name= "name" pattern="[A-Za-z0-9_]+" placeholder="Enter your username">
+        <br>
+        <br>
+        <br>
+        <input autocomplete="off" class="input" type= "password" id= "password" name="password" pattern="[A-Za-z0-9!@#$%^&*()_+=-]+" placeholder="Enter your password"> 
+        <br>
+        <br>
+        <br>
+        <input class="button-2" type= "submit" value = "submit">
+    </form>
+
+      <p>Show Password <input type="checkbox" class="check" onclick="showpass()"></p>
+
+      <script>
+        function showpass() {
+              var x = document.getElementById("password");
+              if (x.type === "password") {
+                x.type = "text";
+              } else {
+                x.type = "password";
+              }
+            }
+      </script>
+      <p class="erorr">{{ error }}</p>
+      <div class="center">
+        <p>No account?</p>
+        <p><a href="/create">Click here<a></a> to sign up now!</p>
+    </div>
+</body>
+</html>

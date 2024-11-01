@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/form.css">
+    <link rel="icon" type="image/x-icon" href="/static/giraffeicon.ico">
+    <title>Sign up</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+      <h1>Sign Up</h1>
+      <form method = "POST" action="{{ url_for('create') }}">
+        <input autocomplete="off" type="text" id = "name" name= "name" class="input" pattern="[A-Za-z0-9_]+" placeholder="Enter your username" required>
+        <br>
+        <br>
+        <br>
+        <input autocomplete="off" type="text" id = "email" name= "email" class="input" pattern="[A-Za-z0-9_.@]+" placeholder="Enter your email" required>
+        <br>
+        <br>
+        <br>
+        <input autocomplete="off" type= "password" id= "password" name="password" class="input" placeholder="Enter your password" minlength="6" pattern="[A-Za-z0-9!@#$%^&*()_+=-]+" required> 
+        <br>
+        <br>
+        <br>
+        <input autocomplete="off" type= "password" id= "confirm-password" name="confirm-password" class="input" pattern="[A-Za-z0-9!@#$%^&*()_+=-]+" placeholder="Confirm password"> 
+        <br>
+        <br>
+        <br>
+        <input type= "submit" value = "submit" class="button-2">
+    </form>
+    <p>Show Password <input type="checkbox" class="check" onclick="showpass()"></p>
+
+    <script>
+      function showpass() {
+            var x = document.getElementById("password");
+            var y = document.getElementById("confirm-password");
+            if (x.type === "password") {
+              x.type = "text";
+              y.type = "text"
+            } else {
+              x.type = "password";
+              y.type = "password"
+            }
+          }
+    </script>
+    <p class="erorr">{{ error }}</p>
+</body>
+</html>
