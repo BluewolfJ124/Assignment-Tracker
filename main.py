@@ -23,7 +23,7 @@ def init_sqlite_db():
     conn = sqlite3.connect('login.db')  # Connect to SQLite database named 'database.db'
     # Execute SQL command to create 'users' table with id, username, and password columns
     conn.execute('CREATE TABLE IF NOT EXISTS login (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), password VARCHAR(255), email STR)')
-    conn.execute('CREATE TABLE IF NOT EXISTS assignments (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), email STR)')
+    conn.execute('CREATE TABLE IF NOT EXISTS assignments (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, date_due TEXT, user TEXT, completed BOOLEAN DEFAULT FALSE)')
     conn.close()  # Close the database connection
 
 @app.route('/')
