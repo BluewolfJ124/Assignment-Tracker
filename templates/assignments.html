@@ -21,26 +21,35 @@
         <input type= "submit" value = "Create" class="button-2">
     </div> 
     </form>
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <table class="styled-table">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Assignment</th>
                     <th>Due Date</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in items %}
                     <tr>
+                        <td class="checkbox"><a href="/delete/{{ item[2] }}" >☐</td>
                         <td>{{ item[0] }}</td>
                         <td class="due">Due in {{ item[1] }} days</td>
-                        <td><a href="/delete/{{ item[2] }}" ><button class="button-2">💀</button></a></td>
                     </tr>
                 {% endfor %}
+                <tr >
+                    <td class="full-span" colspan="3">Completed</td>
+                </tr>
+                {% for item in completed %}
+                <tr>
+                    <td class="checkbox" style="font-size: 40px;">✅</td>
+                    <td colspan="2"><s>{{ item }}</s> <a href="">(delete)</a></td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
-    </div>
+</div>
     <script>
         const elementsWithClass = document.querySelectorAll('.due');
         elementsWithClass.forEach((element) => {

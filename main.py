@@ -57,14 +57,18 @@ def assignments():
         #assignments = get_assignments()
         conn = sqlite3.connect("login.db")
         cursor = conn.cursor()  
-        cursor.execute("SELECT id, name, date_due from assignments WHERE user=?", (session["user"],))
+        cursor.execute("SELECT id, name, date_due, completed from assignments WHERE user=?", (session["user"],))
         items = cursor.fetchall()
-        real_items = []
+        uncompleted = []
+        completed = []
         for i in items:
-            real_items.append((i[1],days_between_dates(i[2]),i[0]))
-        print(real_items)
+            print(i[3] == False)
+            if i[3] == False:
+                uncompleted.append((i[1],days_between_dates(i[2]),i[0]))
+            else:
+                completed.append(i[1])
         conn.close()
-        return render_template('assignments.html',name=get_username(), items=real_items)  
+        return render_template('assignments.html',name=get_username(), items=uncompleted, completed=completed)  
     else:
         return redirect(url_for("login"))
 @app.route('/newassignment', methods=["POST"])
@@ -88,7 +92,7 @@ def delete(id):
         conn = sqlite3.connect("login.db")
         cursor = conn.cursor() 
         try: 
-            cursor.execute("DELETE FROM assignments WHERE id=?", (id,))
+            cursor.execute("UPDATE assignments SET completed=TRUE WHERE id=?", (id,))
             conn.commit()
         except:
             return redirect(url_for("assignments"))
