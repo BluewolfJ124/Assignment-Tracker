@@ -205,4 +205,5 @@ def resetpassword():
         return render_template("resetpass.html", name=get_username())
 
 if __name__ == '__main__':
-    app.run(debug=False, host="0.0.0.0")
+    init_sqlite_db()
+    app.run(debug=True, host="0.0.0.0")
