@@ -88,6 +88,8 @@ def finish(id):
         return jsonify("Not allowed",403)
 @app.route('/delete/<id>', methods=["GET"])
 def delete(id):
+    # Theres a pretty major vunerablility here where anyone can delete an assignment if they just input and id, and are logged into any account
+    # TODO: Check if the user is the owner of the assignment before deleting it
     if session.get('user') is not None:
         conn = sqlite3.connect("login.db")
         cursor = conn.cursor() 
@@ -100,9 +102,7 @@ def delete(id):
         return redirect(url_for("assignments"))
     else:
         return jsonify("Not allowed",403)
-@app.route('/home')
-def home():
-    return redirect(url_for("index"))
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if session.get('user') is not None:
