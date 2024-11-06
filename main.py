@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
-import hashlib
 import sqlite3
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 app = Flask(__name__)
 app.secret_key = 'sdghsadghi'  # Required for session management
@@ -106,10 +106,8 @@ def login():
         name = request.form["name"]
         name = name.lower()
         password = request.form["password"]
-        passwrd = hashlib.sha256()
-        passwrd.update(password.encode('utf-8'))
-        valid = rw_from_db(False, "SELECT COUNT(*) FROM login WHERE name=? AND password=?", (name, passwrd.hexdigest()))[0]
-        if valid[0] >= 1:
+        valid = rw_from_db(False, "SELECT password FROM login WHERE name=?", (name,))[0][0]
+        if check_password_hash(valid,password):
             session['user'] = name
             return redirect(url_for("index"))
         else:
@@ -142,43 +140,13 @@ def create():
             same_name = rw_from_db(False, "SELECT COUNT(*) FROM login WHERE name=?", (name,))[0]
             same_email=rw_from_db(False,"SELECT COUNT(*) FROM login WHERE email=?", (email,))[0]
             if same_name[0] == 0 and same_email[0] == 0:
-                password = password.encode('utf-8')
-                passwd = hashlib.sha256()
-                passwd.update(password) 
-                rw_from_db(True,"INSERT INTO login (name, password, email) VALUES (?, ?, ?)", (name,passwd.hexdigest(),email))
+                rw_from_db(True,"INSERT INTO login (name, password, email) VALUES (?, ?, ?)", (name,generate_password_hash(password),email))
                 session["user"] = name
                 return redirect(url_for("index"))
             else:
                 return render_template('signup.html', error="Username or Email has been taken",name=get_username())
     return render_template('signup.html', error="",name=get_username())
 
-@app.route("/resetpassword", methods=["GET", "POST"])
-def resetpassword():
-    if request.method == "POST":
-        old = request.form["current"]
-        password = request.form["password"]
-        confirm_password = request.form["cpassword"]
-        old = old.encode('utf-8')
-        oldpasswd = hashlib.sha256()
-        oldpasswd.update(old) 
-        valid = rw_from_db(False,"SELECT COUNT(*) FROM login WHERE name=? AND password=?", (get_username(), oldpasswd.hexdigest()))[0]
-        if password != confirm_password:
-            return render_template('resetpass.html', error="Passwords do not match!")
-        elif password=="":
-            return render_template('resetpass.html', error="Password cannot be empty")
-        elif len(password)>50:
-            return render_template('resetpass.html', error="Password cannot be empty")
-        elif valid[0] >= 1:
-            password = password.encode('utf-8')
-            newpasswd = hashlib.sha256()
-            newpasswd.update(password) 
-            rw_from_db(True,'UPDATE login SET password=? WHERE name=? AND password=?;',(newpasswd.hexdigest(),session['user'],oldpasswd.hexdigest()))
-            return redirect(url_for("index"))  
-        else:
-            return render_template('resetpass.html', error="Current password does not exist in the database")
-    else:
-        return render_template("resetpass.html", name=get_username())
-
 if __name__ == '__main__':
     init_sqlite_db()
-    app.run(debug=True, host="0.0.0.0")
+    app.run()
