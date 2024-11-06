@@ -17,7 +17,6 @@ a{
 
 h1 {
   color: white;
-  text-align: center;
   font-size: 56px;
 }
 
@@ -28,8 +27,6 @@ ul{
 p {
   color:rgb(220, 220, 220);
   font-size: 20px;
-  padding-left: 100px;
-  padding-right: 100px;
 }
 /* Style the navbar */
 #navbar {
@@ -70,38 +67,14 @@ p {
 #navbar a:hover::after {
   left: 0; /* Move underline into view on hover */
 }
-
-/*https://uiverse.io/prashantj510/breezy-otter-62*/
-.card {
-  width: 480px;
-  height: 320px;
-  background-image: linear-gradient(163deg, #622792 0%, #EA4C89 100%);
-  border-radius: 20px;
-  transition: all .3s;display: flex;
-  justify-content: center;
-  align-items: center;
- }
- 
- .card2 {
-  width: 480px;
-  height: 320px;
-  background-color: #1a1a1a;
-  border-radius: 20px;
-  transition: all .2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
- }
- 
- .card2:hover {
-  transform: scale(0.98);
-  border-radius: 20px;
- }
- 
- .card:hover {
-  box-shadow: 0px 0px 30px 1px #462969;
- }
- .input {
+.container {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  gap: 50px; /* Adds spacing between each item */
+  align-items: center; /* Centers items vertically */
+  margin: 50px 100px;
+}
+.input {
   color: #fff;
   font-size: 2rem !important;
   background-color: transparent;
