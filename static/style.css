@@ -25,12 +25,6 @@ ul{
   color: white;
   font-size: 24px;
 }
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
 p {
   color:rgb(220, 220, 220);
   font-size: 20px;
@@ -46,7 +40,6 @@ p {
   background-color: #622792;
   max-height: fit-content;
 }
-
 #navbar h1{
   float: left;
   text-align: left;
@@ -78,70 +71,6 @@ p {
   left: 0; /* Move underline into view on hover */
 }
 
-.box {
-  max-width: auto;
-	font-size: 3vw;
-	margin: max(1rem, 3vw);
-	border: 0.35rem solid;
-	padding: 3vw;
-	border-color: rgba(168, 239, 255, 0.1);
-}
-
-/*https://codepen.io/aakhya/pen/wQWZXV*/
-.typewriter {
-  border-right: solid 3px #EA4C89;
-  white-space: nowrap;
-  overflow: hidden;    
-  font-family: monospace;  
-  font-size: 28px;
-  color: rgba(255,255,255,.70);
-  margin: 0 auto;
-}
-
-/* Animation */
-.typewriter {
-  animation: animated-text 4s steps(36,end) 1s 1 normal both,
-             animated-cursor 800ms steps(36,end) infinite;
-}
-@keyframes animated-text{
-  from{width: 0;}
-  to{width: 550px;}
-}
-@media (max-width: 768px) {
-  .typewriter {
-    animation: animated-text 4s steps(26,end) 1s 1 normal both,
-               animated-cursor 800ms steps(26,end) infinite;
-  }
-  @keyframes animated-text{
-    from{width: 0;}
-    to{width: 340px;}
-  }
-}
-/* cursor animations */
-
-@keyframes animated-cursor{
-  from{border-right-color: #EA4C89;}
-  to{border-right-color: transparent;}
-}
-.bottom {
-  width: 100%;          /* Full width of the page */
-  height: 100px;        /* Set height to 100px */
-  background-color: #622792;
-}
-
-.container {
-  display: flex; /* or inline-flex */
-  flex-direction: row;
-  gap: 50px; /* Adds spacing between each item */
-  align-items: center; /* Centers items vertically */
-  margin: 50px 100px;
-}
-
-.container-img {
-  height: 99%;
-  width: 99%;
-  border-radius: 20px;
-}
 /*https://uiverse.io/prashantj510/breezy-otter-62*/
 .card {
   width: 480px;
@@ -172,15 +101,6 @@ p {
  .card:hover {
   box-shadow: 0px 0px 30px 1px #462969;
  }
-.gallery {
-  display: flex;
-  overflow-x: auto; /* Allow horizontal scrolling */  
-  scroll-behavior: smooth; /* Smooth scrolling */
-  padding: 20px;
-  gap: 20px; /* Space between cards */
-  scroll-snap-type: none; /* Disable snapping effect */
-}
-
  .input {
   color: #fff;
   font-size: 2rem !important;
