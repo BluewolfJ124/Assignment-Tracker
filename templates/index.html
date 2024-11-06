@@ -9,23 +9,23 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <div style="margin: 0px 400px;">
-        <h1>Assignment Tracker</h1>
+    <div class="main-container">
+        <h1 style="text-align: left;">Assignment Tracker</h1>
         <div style="display: flex;">
             <div style="flex: 50%;">
-                <p style="font-size: 40px;">The easiest way to stay organised with your assignments in school.</p>
+                <p style="font-size: 32px; padding-right: 10px;">The easiest way to stay organised with your assignments in school.</p>
                 <br>
                 <br>
-                <button class="button-2">Sign up now</button>
+                <a href="/create" type="button" class="button-2">Sign up now</a>
             </div>
-            <img src="static/image.png" style="text-align: right; margin-right: auto;">
+            <img src="static/image.png" width="620" height="218">
         </div>
         <h1>About</h1>
         <p>
-            Welcome to Assessment Tracker, a straightforward school project designed to help you stay organized and on top of all your academic assessments. With our user-friendly platform, you can easily keep track of due dates and monitor your progress across multiple assignments. 
-            By creating an account, you gain access to a secure database where all your assessment data is safely stored, ensuring that you never miss a deadline again. Whether you're a student juggling various tasks or an educator managing assignments, Assessment Tracker provides the essential functionality you need to streamline your workflow and achieve your academic goals. 
-            Start tracking your assessments today and take control of your learning journey with this simple yet effective tool!
+            Assignment Tracker is a simple Flask web app created as a school project. It allows users to create an account, manage their assignments, and track due dates and progress. The application provides a straightforward interface for students to organize and monitor their tasks in one place.
+            The primary goal of this project is to provide a simple, intuitive tool for students to track their assignments.  The project is built as a learning exercise in web development with Flask, with a focus on database handling. The website is open source and avaliable on <a href="https://github.com/BluewolfJ124/Assignment-Tracker"><u>github</u></a>.
         </p>
+        <img src="static/window.png" style="width: 100%;">
         <h1>Contact</h1>
         <ul>
             <li>jamie@gilbertweb.site</li>
