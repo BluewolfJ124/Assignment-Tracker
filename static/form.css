@@ -63,7 +63,7 @@ text-align: left;
   text-decoration: none;
   transition: color 100ms;
   vertical-align: baseline;
-  user-select: none;
+  margin-top: 40px;
 }
 
 .input {
@@ -78,6 +78,7 @@ text-align: left;
   padding: 10px;
   max-width: 1000px;
   transition: .4s;
+  margin-top: 40px;
 }
 
 .input:hover {

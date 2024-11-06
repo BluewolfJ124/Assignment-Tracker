@@ -9,22 +9,25 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <div class="main-container">
+    <div class="main-container"> <!-- Makes sure the website is always 1640 pixels wide for all devices. Leaves a gap on the left and right. -->
         <h1 style="text-align: left;">Assignment Tracker</h1>
-        <div style="display: flex;">
-            <div style="flex: 50%;">
-                <p style="font-size: 32px; padding-right: 10px;">The easiest way to stay organised with your assignments in school.</p>
+        <div style="display: flex;"> 
+            <div style="flex: 50%;"> <!-- Half of the page for text  -->
+                <p style="font-size: 32px; padding-right: 10px;">The easiest way to stay organised with your assignments in school.</p> 
                 <br>
                 <br>
-                <a href="/create" type="button" class="button-2">Sign up now</a>
+                <a href="/create" type="button" class="button-2">Sign up</a>
             </div>
-            <img src="static/image.png" width="620" height="218">
+            <img src="static/image.png" width="620" height="218"> <!-- Half of the page for image -->
         </div>
         <h1>About</h1>
         <p>
             Assignment Tracker is a simple Flask web app created as a school project. It allows users to create an account, manage their assignments, and track due dates and progress. The application provides a straightforward interface for students to organize and monitor their tasks in one place.
             The primary goal of this project is to provide a simple, intuitive tool for students to track their assignments.  The project is built as a learning exercise in web development with Flask, with a focus on database handling. The website is open source and avaliable on <a href="https://github.com/BluewolfJ124/Assignment-Tracker"><u>github</u></a>.
         </p>
+        <br>
+        <br>
+        <br>
         <img src="static/window.png" style="width: 100%; box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15);">
         <h1>Key Features</h1>
         <ul>

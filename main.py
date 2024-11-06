@@ -142,4 +142,4 @@ def create():
 
 if __name__ == '__main__':
     init_sqlite_db() # Initialise the database
-    app.run()
+    app.run(debug=True)
