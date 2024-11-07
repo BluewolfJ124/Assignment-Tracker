@@ -6,7 +6,7 @@ body {
   overflow-x: hidden; /* Hides anything that goes past the width of the website */
 }
 .main-container {
-    width: 1640px; /* Sets the width of the index page to 1640 to support all devices */
+    width: 1240px; /* Sets the width of the index page to 1640 to support all devices */
     margin: auto; /* Centres the website by adding margins to the left and right */
 }
 /* Hide scrollbar for Chrome, Safari and Opera */

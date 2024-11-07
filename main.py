@@ -101,8 +101,9 @@ def login():
         name = request.form["name"] # Get the name and password
         name = name.lower()
         password = request.form["password"]
-        valid = rw_from_db(False, "SELECT password FROM login WHERE name=?", (name,))[0][0] # Get hashed password from database from user
-        if check_password_hash(valid,password): # Check if the hash of the password is the same
+        valid = rw_from_db(False, "SELECT password FROM login WHERE name=?", (name,)) # Get hashed password from database from user
+        print(valid)
+        if len(valid) > 0 and check_password_hash(valid[0][0],password): # Check if the hash of the password is the same
             session['user'] = name
             return redirect(url_for("index"))
         else:
@@ -142,4 +143,4 @@ def create():
 
 if __name__ == '__main__':
     init_sqlite_db() # Initialise the database
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
