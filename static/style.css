@@ -1,7 +1,7 @@
 body {
   min-height: 100vh; /* Ensures body takes the whole height of the screen or the gradient will mess up */
   margin: 0;
-  background-image: linear-gradient(#232225, #1d1d1d);
+  background-color: #f5f6ff;
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden; /* Hides anything that goes past the width of the website */
 }
@@ -16,45 +16,45 @@ body {
 
 h1 {
   text-align: center;
-  color: white;
   font-size: 56px;
 }
 a, p, ul { 
-  color:rgb(220, 220, 220);
   font-size: 26px;
   text-decoration: none;
 }
+
 /* Style the navbar */
 #navbar {
   position: sticky;
   top: 0;
   overflow: hidden;
   z-index: 10; /* Ensures the navbar stays above other elements */
-  background-color: #622792;
+  background-color: #008080;
   max-height: fit-content;
 }
 #navbar h1{
   float: left;
   text-align: left;
   font-size: xx-large;
+  color:#f5f6f5;
 }
 #navbar a {
   float: right;
   display: block;
-  color: #f2f2f2;
   text-align: left;
   padding: 14px;
   font-size: 36px;
   position: relative;
   text-decoration: none;
   overflow: hidden;
+    color:#f5f6f5;
 }
 #navbar a::after {
   content: '';
   position: absolute;
   width: 100%;
   height: 2px;
-  background: #EA4C89; /* Hover underline color */
+  background: #008080; /* Hover underline color */
   bottom: 0;
   left: -100%;
   transition: left 0.3s ease; /* Animation speed */
@@ -71,7 +71,6 @@ a, p, ul {
   margin: 50px 100px;
 }
 .input { /* Main input of assignments page */
-  color: #fff;
   font-size: 2rem !important; /* The font size of the input is very finicky */
   background-color: transparent;
   width: 100%;
@@ -123,10 +122,10 @@ a, p, ul {
   width: 100%;
 }
  .button-2 { /* Normal button with padding */
-  background-color: #EA4C89;
+  background-color: #008080;
+  color: white;
   border-radius: 8px;
   border-style: none;
-  color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
   font-size: 26px;
@@ -139,10 +138,8 @@ a, p, ul {
   -webkit-user-select: none;
 }  
 input[type="date"]{ /* Sets the background of the calander to black */
-  background-color: rgba(0,0,0,0);
   font-size: 60px; /* Makes sure that the calander icon is nice and big */
   border: none;
-  color-scheme: dark;
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
     /* display: none;
@@ -163,8 +160,7 @@ input[type="date"]::-webkit-datetime-edit {
   overflow: hidden;
 }
 .styled-table thead tr { /* Styles the top heading of the talbe */
-  background-color: #EA4C89;
-  color: #ffffff;
+  background-color: #008080;
   text-align: left;
 }
 
@@ -172,7 +168,6 @@ input[type="date"]::-webkit-datetime-edit {
 .styled-table td {
     padding: 15px;
     font-size: 36px;
-    color: #dddddd;
 }
 .styled-table thead tr th:first-child {
   border-top-left-radius: 20px; /* Top-left corner of the header */
@@ -182,9 +177,6 @@ input[type="date"]::-webkit-datetime-edit {
   border-top-right-radius: 20px; /* Top-right corner of the header */
 }
 
-.styled-table tbody tr:nth-of-type(even) {
-  background-color: #2B2A2F;
-}
 .styled-table td.checkbox{
   padding: 0;
   display: flex;
@@ -193,8 +185,7 @@ input[type="date"]::-webkit-datetime-edit {
 }
 
 .full-span {
-  background-color: rgb(32, 31, 32);
-  color: white; /* White text color */
+  background-color:#f5f6f5;
   font-weight: bold; /* Bold text */
   font-size: 56px !important; /* Increased font size */
   padding: 15px; /* Increased padding */

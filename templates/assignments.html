@@ -32,28 +32,15 @@
             <tbody>
                 {% for item in items %}
                     <tr>
-                        <td class="checkbox"><a style="font-size: 50px;" href="/finish/{{ item[2] }}" >☐</td>
-                        <td>{{ item[0] }}</td>
-                        <td class="due">Due in {{ item[1] }} days</td>
+                        <td><a href="/assignment/{{ item[0] }}">{{ item[1] }}</a></td>
+                        <td> {{ item[2] }}</td>
+                        <td class="due">Due in {{ item[3] }} days</td>
                     </tr>
                 {% endfor %}
-                <tr >
-                    <td class="full-span" colspan="3">Completed</td>
-                </tr>
-                {% for item in completed %}
-                <tr>
-                    <td class="checkbox" style="font-size: 40px;">✅</td>
-                    <td colspan="2"><s>{{ item[1] }}</s> <a href="/delete/{{ item[0] }}">(delete)</a></td>
-                </tr>
-            {% endfor %}
             </tbody>
         </table>
 </div>
 <br>
-<br>
-<br>
-<br>
-<p>Assignments are automatically deleted 14 days after their due date</p>
     <script>
         const elementsWithClass = document.querySelectorAll('.due');
         elementsWithClass.forEach((element) => {
