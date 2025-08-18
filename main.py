@@ -56,7 +56,7 @@ def index():
 @app.route('/assignments') 
 def assignments():
     if session.get('user') is not None: 
-        items = rw_from_db(False, "SELECT id, name, date_due, subject from assignments WHERE id=?", (session["user"],)) # Get assignment data
+        items = rw_from_db(False, "SELECT id, name, subject, date_due from assignments WHERE id=?", (session["user"],)) # Get assignment data
         newitems=[]
         for i in items:
             newitems.append((i[0],i[1],i[2],days_between_dates(i[3])))
@@ -69,7 +69,7 @@ def assignments():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-@app.route('/newassignment', methods=["POST"]) # Post request made by the form
+@app.route('/newassignment', methods=["GET","POST"]) # Post request made by the form
 def newassignment():
     if request.method == 'POST': 
         date = request.form['date']
@@ -84,12 +84,12 @@ def newassignment():
         
         with sqlite3.connect("login.db") as conn:
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO assignments (due_date, name, subject, description, image_filename) VALUES (?, ?, ?, ?)',
-                           (date, name, subject, description, image_filename))
+            cursor.execute('INSERT INTO assignments (userid, date_due, name, subject, description, image_filename) VALUES (?,?, ?, ?, ?, ?)',
+                           (session["user"],date, name, subject, description, image_filename))
             conn.commit()
         return redirect(url_for("assignments"))
-    else:
-        return render_template('add.html')
+
+    return render_template('add.html')
     
 
 @app.route('/delete/<id>', methods=["GET"])
@@ -108,7 +108,7 @@ def delete(id):
 @app.route("/login", methods=["GET", "POST"]) # Login route
 def login():
     if session.get('user') is not None: # If user is logged in, send them to the logged in page
-        data = rw_from_db(False,"SELECT name, email from login WHERE name=?", (session["user"],))
+        data = rw_from_db(False,"SELECT name, email from login WHERE id=?", (session["user"],))
         name= data[0][0]
         email=data[0][1] # Display the email data
         return render_template('loggedin.html',email=email)
