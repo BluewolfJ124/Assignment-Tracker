@@ -10,16 +10,9 @@
 <body>
     {% include 'navbar.html' %}
     <h1>Assignments</h1>
-    <form method="POST" action="/newassignment">
-    <div class="container">
-        <div class="form-control">
-            <input class="input input-alt" id="name", name="name" placeholder="Create Assignment" required="" type="text">
-            <span class="input-border input-border-alt"></span>
-        </div>
-        <input type="date" id="due" name="due" required="">
-        <input type= "submit" value = "Create" class="button-2">
-    </div> 
-    </form>
+
+    <a class="button-2" href="/newassignment" style="width: 50%; display: block; margin: 0 auto;">Create Assignment</a>
+    <br>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <table class="styled-table">
             <thead>
@@ -32,7 +25,7 @@
             <tbody>
                 {% for item in items %}
                     <tr>
-                        <td><a href="/assignment/{{ item[0] }}">{{ item[1] }}</a></td>
+                        <td><a href="/edit/{{ item[0] }}">{{ item[1] }}</a></td>
                         <td> {{ item[2] }}</td>
                         <td class="due">Due in {{ item[3] }} days</td>
                     </tr>

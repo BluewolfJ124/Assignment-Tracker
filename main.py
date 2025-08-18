@@ -36,18 +36,12 @@ def init_sqlite_db(): # Create the db if it doesn't exist
                 ''')     
     conn.close() 
 
-def rw_from_db(write,query, params=()): # Read and write to sql database function
-    conn = sqlite3.connect("login.db") # Connect to the database
-    cursor = conn.cursor() 
-    cursor.execute(query, params) # Excute the command with the given parameters
-    conn.commit()
-    if write==False: # If the command is reading
-        items = cursor.fetchall() # Get the result
-        conn.close()
-        return items # Return the result
-    else:
-        conn.close()
-        return # If the command is write, return nothing
+def rw_from_db(write, query, params=()):
+    with sqlite3.connect("login.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        if not write:
+            return cursor.fetchall()
 
 @app.route('/') # Route for index
 def index(): 
@@ -56,7 +50,7 @@ def index():
 @app.route('/assignments') 
 def assignments():
     if session.get('user') is not None: 
-        items = rw_from_db(False, "SELECT id, name, subject, date_due from assignments WHERE id=?", (session["user"],)) # Get assignment data
+        items = rw_from_db(False, "SELECT id, name, subject, date_due FROM assignments WHERE userid=?", (session["user"],)) # Get assignment data
         newitems=[]
         for i in items:
             newitems.append((i[0],i[1],i[2],days_between_dates(i[3])))
@@ -91,19 +85,61 @@ def newassignment():
 
     return render_template('add.html')
     
+# Route to edit an existing entry
+@app.route('/edit/<int:entry_id>', methods=['GET', 'POST'])
+def edit_entry(entry_id):
+    if session.get('user') is None:  # Ensure the user is logged in
+        return redirect(url_for('login'))
 
-@app.route('/delete/<id>', methods=["GET"])
+    # Fetch the assignment details for the logged-in user
+    assignment = rw_from_db(False, "SELECT * FROM assignments WHERE id = ? AND userid = ?", (entry_id, session['user']))
+    if not assignment:
+        return jsonify("Assignment not found or unauthorized access", 403)
+
+    assignment = assignment[0]  # Extract the single result
+
+    if request.method == 'POST':
+        date = request.form['date']
+        name = request.form['name']
+        description = request.form['description']
+        subject = request.form['subject']
+        image = request.files['image']
+        image_filename = assignment[6]  # Keep the existing image filename
+
+        if image:
+            if image_filename:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))  # Remove the old image
+            image_filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
+
+        # Update the assignment in the database
+        rw_from_db(True, '''
+            UPDATE assignments 
+            SET date_due = ?, name = ?, subject = ?, description = ?, image_filename = ? 
+            WHERE id = ? AND userid = ?
+        ''', (date, name, subject, description, image_filename, entry_id, session['user']))
+
+        return redirect(url_for('assignments'))
+
+    return render_template('edit.html', entry={
+        'id': assignment[0],
+        'userid': assignment[1],
+        'name': assignment[2],
+        'date_due': assignment[3],
+        'subject': assignment[4],
+        'description': assignment[5],
+        'image_filename': assignment[6]
+    })
+
+@app.route('/delete/<int:id>', methods=["GET"])
 def delete(id):
-    # Theres a pretty major vunerablility here where anyone can delete an assignment if they just input and id, and are logged into any account
-    # TODO: Check if the user is the owner of the assignment before deleting it
     if session.get('user') is not None:
-        try: 
-            rw_from_db(True,"DELETE FROM assignments WHERE id=?", (id,)) # Delete the item by id
-        except:
+        assignment = rw_from_db(False, "SELECT userid FROM assignments WHERE id=?", (id,))
+        if assignment and assignment[0][0] == session['user']:
+            rw_from_db(True, "DELETE FROM assignments WHERE id=?", (id,))
             return redirect(url_for("assignments"))
-        return redirect(url_for("assignments"))
-    else:
-        return jsonify("Not allowed",403)
+        return jsonify("Unauthorized access", 403)
+    return jsonify("Not allowed", 403)
 
 @app.route("/login", methods=["GET", "POST"]) # Login route
 def login():

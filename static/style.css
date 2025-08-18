@@ -18,7 +18,7 @@ h1 {
   text-align: center;
   font-size: 56px;
 }
-a, p, ul { 
+a, p, ul,label { 
   font-size: 26px;
   text-decoration: none;
 }
@@ -63,64 +63,7 @@ a, p, ul {
 #navbar a:hover::after {
   left: 0; /* Move underline into view on hover */
 }
-.container {
-  display: flex; /* or inline-flex */
-  flex-direction: row;
-  gap: 50px; /* Adds spacing between each item */
-  align-items: center; /* Centers items vertically */
-  margin: 50px 100px;
-}
-.input { /* Main input of assignments page */
-  font-size: 2rem !important; /* The font size of the input is very finicky */
-  background-color: transparent;
-  width: 100%;
-  box-sizing: border-box;
-  padding-inline: 0.5em;
-  padding-block: 0.7em;
-  border: none;
-  border-bottom: var(--border-height) solid var(--border-before-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
-.input-border { /* Cool underline */
-  position: absolute;
-  background: var(--border-after-color);
-  width: 0%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  transition: width 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045); /* Smooth animation */
-}
-
-.input:focus {
-  outline: none;
-}
-
-.input:focus + .input-border {
-  width: 100%;
-}
-
-.form-control { /* Controlls the input section of the assignments page */
-  position: relative;
-  width: 100%;
-}
-
-.input-alt {
-  font-size: 1.2rem;
-  padding-inline: 1em;
-  padding-block: 0.8em;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.input-border-alt { /* Gradient bottom border */
-  height: 3px;
-  background: linear-gradient(90deg, #622792 0%, #EA4C89 100%);
-  transition: width 0.4s cubic-bezier(0.42, 0, 0.58, 1.00);
-}
-
-.input-alt:focus + .input-border-alt {
-  width: 100%;
-}
  .button-2 { /* Normal button with padding */
   background-color: #008080;
   color: white;
@@ -158,10 +101,12 @@ input[type="date"]::-webkit-datetime-edit {
   margin: 0 100px; /* 100px margin on left and right */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+
 }
 .styled-table thead tr { /* Styles the top heading of the talbe */
   background-color: #008080;
   text-align: left;
+  color: white;
 }
 
 .styled-table th,
@@ -190,4 +135,22 @@ input[type="date"]::-webkit-datetime-edit {
   font-size: 56px !important; /* Increased font size */
   padding: 15px; /* Increased padding */
   border-top: 3px solid white; /* White underline */
+}
+
+.input {
+  font-size: 40px;  
+  background-color: rgb(189, 189, 199);
+  box-shadow: 0 0 .4vw rgba(0,0,0,0.5), 0 0 0 .15vw transparent;
+  border-radius: 0.4vw;
+  border: none;
+  outline: none;
+  padding: 10px;
+  transition: .4s;
+  margin-top: 40px;
+  box-shadow: 0 0 0 .15vw #252a2a;
+}
+
+
+.input:focus {
+box-shadow: 0 0 0 .15vw #008080;
 }

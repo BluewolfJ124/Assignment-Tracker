@@ -5,23 +5,24 @@
     <title>Add Entry</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <h1>Add Entry</h1>
     <form action="/newassignment" method="POST" enctype="multipart/form-data">
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br><br>
+        <input  type="date" id="date" name="date" required><br><br>
 
         <label for="title">Title:</label>
-        <input type="name" id="name" name="name" required><br><br>
+        <input class="input" type="name" id="name" name="name" required><br><br>
         <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required><br><br>
+        <input class="input" type="text" id="subject" name="subject" required><br><br>
         
         <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br><br>
+        <textarea class="input" id="description" name="description" required></textarea><br><br>
         
         <label for="image">Image:</label>
         <input type="file" id="image" name="image"><br><br>
         
-        <button type="submit">Add Entry</button>
+        <button type="submit" class="button-2">Add Entry</button>
     </form>
 </body>
 </html>
