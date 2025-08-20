@@ -147,7 +147,7 @@ def login():
         data = rw_from_db(False,"SELECT name, email from login WHERE id=?", (session["user"],))
         name= data[0][0]
         email=data[0][1] # Display the email data
-        return render_template('loggedin.html',email=email)
+        return render_template('loggedin.html',email=email,name=name)
     if request.method == "POST": # If it is a login POST request
         name = request.form["name"] # Get the name and password
         name = name.lower()
@@ -187,7 +187,7 @@ def create():
             if same_name[0] == 0 and same_email[0] == 0:
                 rw_from_db(True,"INSERT INTO login (name, password, email) VALUES (?, ?, ?)", (name,generate_password_hash(password),email)) # Write the new user data to the database
                 id = rw_from_db(False, "SELECT id FROM login WHERE name=?", (name,))
-                session["user"] = id # Login to the session by setting the session user
+                session["user"] = id[0][0]  # Extract the user ID from the list and assign it
                 return redirect(url_for("index"))
             else:
                 return render_template('signup.html', error="Username or Email has been taken") # Return if there is the same username

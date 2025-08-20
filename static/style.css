@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   min-height: 100vh; /* Ensures body takes the whole height of the screen or the gradient will mess up */
   margin: 0;
@@ -80,18 +84,6 @@ a, p, ul,label {
   user-select: none;
   -webkit-user-select: none;
 }  
-input[type="date"]{ /* Sets the background of the calander to black */
-  font-size: 60px; /* Makes sure that the calander icon is nice and big */
-  border: none;
-}
-input[type="date"]::-webkit-calendar-picker-indicator {
-    /* display: none;
-    -webkit-appearance: none; */
-    margin:0; 
-}
-input[type="date"]::-webkit-datetime-edit {
-    display:none; /* Hide the actual date input part of the input. We only want he calendar */
-}
 .styled-table { /* Actual assignments table */
   border-collapse: separate;
   margin: 25px 0;
@@ -153,4 +145,42 @@ input[type="date"]::-webkit-datetime-edit {
 
 .input:focus {
 box-shadow: 0 0 0 .15vw #008080;
+}
+.form-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview {
+  max-width: 150px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-container label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container button {
+  display: block;
+  width: 100%;
+}
+
+.form-container input,
+.form-container textarea {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-container button {
+  padding: 15px;
+  font-size: 18px;
 }

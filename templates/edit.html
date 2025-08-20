@@ -6,27 +6,31 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <h1>Edit Assignment</h1>
-    <form action="/edit/{{ entry.id }}" method="POST" enctype="multipart/form-data">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="{{ entry.date_due }}" required><br><br>
+    <div class="form-container">
+        <a href="/assignments">Back</a>
+        <a href="/delete/{{ entry.id }}" style="color: red; ">Delete Assignment</a>
+        <h1>Edit Assignment</h1>
+        <form action="/edit/{{ entry.id }}" method="POST" enctype="multipart/form-data">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" value="{{ entry.date_due }}" class="input" required><br><br>
 
-        <label for="name">Name:</label>
-        <input class="input" type="text" id="name" name="name" value="{{ entry.name }}" required><br><br>
-        
-        <label for="subject">Subject:</label>
-        <input class="input" type="text" id="subject" name="subject" value="{{ entry.subject }}" required><br><br>
-        
-        <label for="description">Description:</label>
-        <textarea class="input" id="description" name="description" required>{{ entry.description }}</textarea><br><br>
-        
-        <label for="image">Image:</label>
-        {% if entry.image_filename %}
-        <img src="{{ url_for('uploaded_file', filename=entry.image_filename) }}" alt="Existing Image" style="max-width: 100px;"><br>
-        {% endif %}
-        <input type="file" id="image" name="image"><br><br>
-        
-        <button type="submit" class="button-2">Update Assignment</button>
-    </form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ entry.name }}" class="input" required><br><br>
+            
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" value="{{ entry.subject }}" class="input" required><br><br>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" class="input" required>{{ entry.description }}</textarea><br><br>
+            
+            <label for="image">Image:</label>
+            {% if entry.image_filename %}
+            <img src="{{ url_for('uploaded_file', filename=entry.image_filename) }}" alt="Existing Image" class="image-preview"><br>
+            {% endif %}
+            <input type="file" id="image" name="image" class="input"><br><br>
+            
+            <button type="submit" class="button-2">Update Assignment</button>
+        </form>
+    </div>
 </body>
 </html>

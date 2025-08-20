@@ -1,0 +1,127 @@
+START sign up
+    DECLARE username
+    DECLARE password
+    DECLARE confirmPassword
+    DECLARE database AS "login.db"
+    INPUT username
+    INPUT email
+    INPUT password
+    INPUT confirmPassword
+    IF username IS NOT EQUAL TO NULL AND email is NOT EQUAL TO NULL THEN
+        IF password IS EQUAL TO confirmPassword AND password LENGTH IS GREATER THAN 8 THEN
+            CONNECT database TO SQLITE 
+            EXECUTE QUERY SELECT COUNT FROM users WHERE name=username
+            IF COUNT IS 0 THEN
+                SET password TO HASH PASSWORD
+                EXECUTE QUERY INSERT username, email, password INTO users
+                LOAD assignments.html
+            ELSE
+                RETURN "Username is taken"
+            ENDIF
+        ELSE
+            RETURN "Password is invalid"
+        ENDIF
+    ELSE
+        RETURN "Username is invalid"
+    ENDIF
+END
+
+START login
+    DECLARE username
+    DECLARE password
+    DECLARE database AS "login.db"
+    INPUT username
+    INPUT password
+    IF username IS NOT EQUAL TO NULL AND password IS NOT EQUAL TO NULL THEN
+        CONNECT database TO SQLITE
+        EXECUTE QUERY SELECT password, id FROM login WHERE name=username
+        IF QUERY RESULT IS NOT EMPTY THEN
+            IF HASH(password) IS EQUAL TO QUERY RESULT password THEN
+                SET session.user TO QUERY RESULT id
+                RETURN index.html
+            ELSE
+                RETURN "Invalid password"
+            ENDIF
+        ELSE
+            RETURN "Username does not exist"
+        ENDIF
+    ELSE
+        RETURN "Username or password is invalid"
+    ENDIF
+END
+
+START listAssignments
+    DECLARE userID AS session.user
+    DECLARE database AS "login.db"
+    EXECUTE QUERY SELECT id, name, subject, dueDate FROM assignments WHERE userID IS EQUAL TO userID
+    RETURN assignments.html
+END
+
+START createAssignment
+    DECLARE userID AS session.user
+    DECLARE database AS "login.db"
+    INPUT name
+    INPUT date_due
+    INPUT subject
+    INPUT description
+    INPUT image
+    IF userID IS NOT NULL THEN
+        IF name IS NOT NULL AND date_due IS NOT NULL AND subject IS NOT NULL THEN
+            IF image IS NOT NULL THEN
+                SAVE image TO UPLOAD_FOLDER
+            ENDIF
+            CONNECT database TO SQLITE
+            EXECUTE QUERY INSERT userID, name, date_due, subject, description, image INTO assignments
+            RETURN assignments.html
+        ELSE
+            RETURN "Invalid assignment details"
+        ENDIF
+    ELSE
+        RETURN "User not logged in"
+    ENDIF
+END
+
+START editAssignment
+    DECLARE userID AS session.user
+    DECLARE database AS "login.db"
+    INPUT assignmentID
+    INPUT name
+    INPUT date_due
+    INPUT subject
+    INPUT description
+    INPUT image
+    IF userID IS NOT NULL THEN
+        CONNECT database TO SQLITE
+        EXECUTE QUERY SELECT userID FROM assignments WHERE id=assignmentID
+        IF QUERY RESULT userID IS EQUAL TO session.user THEN
+            IF image IS NOT NULL THEN
+                DELETE EXISTING image FROM UPLOAD_FOLDER
+                SAVE image TO UPLOAD_FOLDER
+            ENDIF
+            EXECUTE QUERY UPDATE assignments SET name, date_due, subject, description, image WHERE id=assignmentID
+            RETURN assignments.html
+        ELSE
+            RETURN "Unauthorized access"
+        ENDIF
+    ELSE
+        RETURN "User not logged in"
+    ENDIF
+END
+
+START deleteAssignment
+    DECLARE userID AS session.user
+    DECLARE database AS "login.db"
+    INPUT assignmentID
+    IF userID IS NOT NULL THEN
+        CONNECT database TO SQLITE
+        EXECUTE QUERY SELECT userid FROM assignments WHERE id=assignmentID
+        IF QUERY RESULT userid IS EQUAL TO session.user THEN
+            EXECUTE QUERY DELETE FROM assignments WHERE id=assignmentID
+            RETURN assignments.html
+        ELSE
+            RETURN "Unauthorized access"
+        ENDIF
+    ELSE
+        RETURN "User not logged in"
+    ENDIF
+END
