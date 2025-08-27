@@ -27,7 +27,7 @@ def init_sqlite_db(): # Create the db if it doesn't exist
     conn.execute('''
                 CREATE TABLE IF NOT EXISTS assignments (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                userid INTEGER, 
+                userid FORIEGN KEY REFERENCES login(userid), 
                 name TEXT NOT NULL, 
                 date_due TEXT, 
                 subject TEXT NOT NULL,
